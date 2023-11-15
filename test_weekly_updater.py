@@ -9,7 +9,7 @@ def fetch_latest_draw_no_from_db():
     cursor.execute("SELECT MAX(drawNo) FROM LottoDraws")
     result = cursor.fetchone()
     cursor.close()
-    return result[0] if result else None
+    return result[0] if result and result[0] is not None else 0
 
 
 def fetch_and_save_next_draw_data():
@@ -22,8 +22,7 @@ def fetch_and_save_next_draw_data():
             print(f"{next_draw_no} 회차 데이터를 가져와서 저장했습니다.")
 
 
-# 매주 일요일 자정에 fetch_and_save_draw_data 함수 실행 스케줄링
-schedule.every().sunday.at("00:00").do(fetch_and_save_next_draw_data)
+schedule.every(10).seconds.do(fetch_and_save_next_draw_data)
 
 while True:
     schedule.run_pending()

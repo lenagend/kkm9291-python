@@ -1,6 +1,6 @@
 import mariadb
 import requests
-from db_setup import conn
+from src.db_setup import conn
 
 
 def get_lotto_data(draw_no):
@@ -44,6 +44,7 @@ def save_lotto_data(data):
 
 
 # 데이터 수집 및 저장
-for draw_no in range(1, 1094):  # 예시 범위
-    lotto_data = get_lotto_data(draw_no)
-    save_lotto_data(lotto_data)
+if __name__ == "__main__":
+    for draw_no in range(1, 1094):  # 예시 범위
+        lotto_data = get_lotto_data(draw_no)
+        save_lotto_data(lotto_data)
