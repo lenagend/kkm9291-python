@@ -1,6 +1,6 @@
 import mariadb
 import requests
-from src.db_setup import conn
+from src.database.db_setup import conn
 
 
 def get_lotto_data(draw_no):
@@ -19,27 +19,22 @@ def get_lotto_data(draw_no):
 
 def save_lotto_data(data):
     if data is None:
-        print("api에서 정보를 받아오지 못했습니다.")
+        print("API에서 정보를 받아오지 못했습니다.")
         return
-
-
+    cursor = conn.cursor()
     try:
-        cursor = conn.cursor()
-        insert_query = """
-        INSERT INTO LottoDraws (drawNo, drawDate, totalSellAmount, firstPrizeAmount, firstPrizeWinners, bonusNo, drawNo1, drawNo2, drawNo3, drawNo4, drawNo5, drawNo6)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        """
+        insert_query = """INSERT INTO lotto_draws (draw_no, draw_date, total_sell_amount, first_prize_amount, 
+        first_prize_winners, bonus_no, draw_no1, draw_no2, draw_no3, draw_no4, draw_no5, draw_no6) VALUES (?, ?, ?, 
+        ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
         cursor.execute(insert_query, (
-        data['drwNo'], data['drwNoDate'], data['totSellamnt'], data['firstWinamnt'], data['firstPrzwnerCo'],
-        data['bnusNo'], data['drwtNo1'], data['drwtNo2'], data['drwtNo3'], data['drwtNo4'], data['drwtNo5'],
-        data['drwtNo6']))
+            data['drwNo'], data['drwNoDate'], data['totSellamnt'], data['firstWinamnt'], data['firstPrzwnerCo'],
+            data['bnusNo'], data['drwtNo1'], data['drwtNo2'], data['drwtNo3'], data['drwtNo4'], data['drwtNo5'],
+            data['drwtNo6']))
         conn.commit()
-        print(f"회차 {data['drwNo']} 저장 완료.")  # 저장 완료 메시지 출력
+        print(f"회차 {data['drwNo']} 저장 완료.")
     except mariadb.Error as e:
         print(f"데이터베이스 쿼리 실행 중 오류 발생: {e}")
-        # 필요한 경우 여기서 추가 오류 처리를 수행
     finally:
-        # 성공하든 실패하든, 항상 커서를 닫습니다.
         cursor.close()
 
 
