@@ -1,6 +1,6 @@
 import mariadb
 import requests
-from src.database.db_setup import conn
+from database.database_manager import conn
 
 
 def get_lotto_data(draw_no):
