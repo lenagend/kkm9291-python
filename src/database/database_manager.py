@@ -57,9 +57,17 @@ class DatabaseManager:
         """
         self.execute_query(create_recommended_numbers_table_query)
 
-    def execute_query(self, query):
+    def execute_query(self, query, params=None, fetch_one=False):
         with self.connection.cursor() as cursor:
-            cursor.execute(query)
+            cursor.execute(query, params or ())
+            if query.strip().upper().startswith("SELECT"):
+                if fetch_one:
+                    return cursor.fetchone()
+                else:
+                    return cursor.fetchall()
+            else:
+                self.connection.commit()
+                return None
 
     def setup_database(self):
         self.create_lotto_draws_table()
