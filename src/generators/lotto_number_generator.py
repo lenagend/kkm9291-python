@@ -34,10 +34,10 @@ class LottoNumberGenerator:
         random_numbers = self.generate_pure_random_lotto_numbers(num_sets, "6개의 랜덤번호")
 
         # 통계 기반 번호 생성
-        most_frequent_5_draws = self.generate_statistical_lotto_numbers(5, num_sets, "5회차에서 가장 자주 나온 번호", True)
-        least_frequent_5_draws = self.generate_statistical_lotto_numbers(5, num_sets, "5회차에서 가장 적게 나온 번호", False)
-        most_frequent_10_draws = self.generate_statistical_lotto_numbers(10, num_sets, "10회차에서 가장 자주 나온 번호", True)
-        least_frequent_10_draws = self.generate_statistical_lotto_numbers(10, num_sets, "10회차에서 가장 적게 나온 번호", False)
+        most_frequent_5_draws = self.generate_statistical_lotto_numbers(5, num_sets, "5회동안 가장 자주 나온 번호", True)
+        least_frequent_5_draws = self.generate_statistical_lotto_numbers(5, num_sets, "5회동안 가장 적게 나온 번호", False)
+        most_frequent_10_draws = self.generate_statistical_lotto_numbers(10, num_sets, "10회동안 가장 자주 나온 번호", True)
+        least_frequent_10_draws = self.generate_statistical_lotto_numbers(10, num_sets, "10회동안 가장 적게 나온 번호", False)
 
         # 모든 번호 결합
         combined_numbers = (random_numbers + most_frequent_5_draws + least_frequent_5_draws +

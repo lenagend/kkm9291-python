@@ -1,0 +1,18 @@
+version: '3.12'
+
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Rjawhs11!!
+      MYSQL_DATABASE: lotto_test
+      MYSQL_USER: km
+      MYSQL_PASSWORD: Rjawhs11!!
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    depends_on:
+      - mariadb

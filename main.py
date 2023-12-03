@@ -19,11 +19,12 @@ def main():
 
     # 환경에 따라 .env 파일 선택
     if args.env == 'production':
-        dotenv_path = '../.env.production'
+        dotenv_path = '.env.production'
     else:
-        dotenv_path = '../.env.development'
+        dotenv_path = '.env.development'
 
     load_dotenv(dotenv_path=dotenv_path)
+
     with DatabaseManager() as db_manager:
         db_manager.setup_database()
 
@@ -40,7 +41,7 @@ def main():
                 data_saver.save_lotto_data(data)
 
         # schedule.every().sunday.at("00:00").do(updater.fetch_and_save_next_draw_data)
-        schedule.every(5).seconds.do(updater.fetch_and_save_next_draw_data)
+        schedule.every(10).seconds.do(updater.fetch_and_save_next_draw_data)
 
         while True:
             schedule.run_pending()
