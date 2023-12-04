@@ -1,25 +1,32 @@
 import os
+import time
+
 import mariadb
 
 
 # 데이터베이스 연결 설정
 class DatabaseManager:
     def __init__(self):
-        self.connection = self.connect_to_database(self)
+        self.connection = self.connect_to_database()
 
     @staticmethod
-    def connect_to_database(self):
-        try:
-            return mariadb.connect(
-                user=os.getenv("DB_USER"),
-                password=os.getenv("DB_PASSWORD"),
-                host=os.getenv("DB_HOST"),
-                port=int(os.getenv("DB_PORT")),
-                database=os.getenv("DB_NAME")
-            )
-        except mariadb.Error as e:
-            print(f"Error connecting to MariaDB Platform: {e}")
-            raise  # 예외를 상위로 전파
+    def connect_to_database():
+        max_retries = 5
+        retry_delay = 5  # 5초 대기
+
+        for attempt in range(max_retries):
+            try:
+                return mariadb.connect(
+                    user=os.getenv("DB_USER"),
+                    password=os.getenv("DB_PASSWORD"),
+                    host=os.getenv("DB_HOST"),
+                    port=int(os.getenv("DB_PORT")),
+                    database=os.getenv("DB_NAME")
+                )
+            except mariadb.Error as e:
+                print(f"연결 시도 {attempt + 1}/{max_retries} 실패: {e}")
+                time.sleep(retry_delay)
+        raise Exception("MariaDB에 연결할 수 없습니다.")
 
     def create_lotto_draws_table(self):
         create_table_query = """
