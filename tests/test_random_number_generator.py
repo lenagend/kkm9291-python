@@ -1,6 +1,6 @@
 import unittest
 
-from src.generators.pure_random_generator import generate_pure_random_lotto_numbers
+from src.lotto.generators import generate_pure_random_lotto_numbers
 
 
 class TestLottoNumberGenerator(unittest.TestCase):

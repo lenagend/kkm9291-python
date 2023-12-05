@@ -1,4 +1,4 @@
-from src.generators.lotto_number_generator import generate_pure_random_lotto_numbers
+from src.lotto.generators.lotto_number_generator import generate_pure_random_lotto_numbers
 from ..database.db_setup import conn
 
 

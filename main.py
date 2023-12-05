@@ -1,12 +1,12 @@
 import time
 import schedule
 
-from src.database.database_manager import DatabaseManager
-from src.collectors.lotto_data_collector import LottoDataCollector
-from src.database.lotto_data_accessor import LottoDataAccessor
-from src.database.lotto_data_saver import LottoDataSaver
-from src.generators.lotto_number_generator import LottoNumberGenerator
-from src.updater.weekly_lotto_updater import LottoUpdater
+from src.lotto.database.database_manager import DatabaseManager
+from src.lotto.collectors.lotto_data_collector import LottoDataCollector
+from src.lotto.database.lotto_data_accessor import LottoDataAccessor
+from src.lotto.database.lotto_data_saver import LottoDataSaver
+from src.lotto.generators.lotto_number_generator import LottoNumberGenerator
+from src.lotto.updater.weekly_lotto_updater import LottoUpdater
 
 
 def main():
